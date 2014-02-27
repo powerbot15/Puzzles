@@ -1,14 +1,57 @@
 (function(){
 
-    window.addEventListener('load', function(){
+    function Particle(context, xStart, yStart, xWidth, yHeight ){
 
-        var image = document.getElementsByClassName('hidden')[0],
-            originalImage = document.getElementsByClassName('original')[0],
-            originalContext = originalImage.getContext('2d'),
-            puzzleImage = document.getElementsByClassName('shuffled')[0],
-            puzzleContext = puzzleImage.getContext('2d'),
-            parts,
-            grayImage;
+        this.imagePart = context.getImageData(xStart, yStart, xWidth, yHeight);
+        this.imagePartGray = context.getImageData(xStart, yStart, xWidth, yHeight);
+        this.xOrigStart = xStart;
+        this.xOrigWidth = xWidth;
+        this.yOrigStart = yStart;
+        this.yOrigWidth = yHeight;
+
+    }
+
+    Particle.prototype.imagePart = {};
+    Particle.prototype.imagePartGray = {};
+    Particle.prototype.xOrigStart = 0;
+    Particle.prototype.xOrigWidth = 0;
+    Particle.prototype.yOrigStart = 0;
+    Particle.prototype.yOrigWidth = 0;
+    Particle.prototype.xShuffledStart = 0;
+    Particle.prototype.xShuffledWidth = 0;
+    Particle.prototype.yShuffledStart = 0;
+    Particle.prototype.yShuffledHeight = 0;
+
+
+    Particle.prototype.setPixelsGray = function(){
+        var grayIntensity;
+        for(var i = 0; i < this.imagePartGray.data.length; i += 4){
+            grayIntensity = (this.imagePartGray.data[i] + this.imagePartGray.data[i+1] + this.imagePartGray.data[i+2]) / 3;
+            grayIntensity += 100;
+            this.imagePartGray.data[i] = grayIntensity;
+            this.imagePartGray.data[i+1] = grayIntensity;
+            this.imagePartGray.data[i+2] = grayIntensity;
+        }
+    };
+    Particle.prototype.drawColor = function(context){
+        context.putImageData(this.imagePart, this.xShuffledStart, this.yShuffledStart);
+    };
+
+
+
+    var image = document.getElementsByClassName('hidden')[0],
+        originalImage = document.getElementsByClassName('original')[0],
+        originalContext = originalImage.getContext('2d'),
+        puzzleImage = document.getElementsByClassName('shuffled')[0],
+        puzzleContext = puzzleImage.getContext('2d'),
+        partWidth = 100,
+        partHeight = 100,
+        parts, partsShuffled,
+        particle,
+
+        grayImage;
+
+    window.addEventListener('load', function(){
 
         originalImage.width = puzzleImage.width = image.width;
         originalImage.height = puzzleImage.height = image.height;
@@ -21,26 +64,53 @@
         originalContext.putImageData(grayImage, 0, 0);
 
         drawParts(parts, puzzleContext);
+        partsShuffled = getParts(puzzleContext);
         drawGrid(originalContext);
         drawGrid(puzzleContext);
 
     });
 
-    function getParts(context){
-        var parts = [];
+    puzzleImage.addEventListener('click', function(event){
+        var xIndex = Math.floor(event.layerX/partWidth),
+            yIndex = Math.floor(event.layerY/partHeight),
+            linearIndex = yIndex * 5 + xIndex;
 
+        puzzleContext.strokeStyle = 'red';
+
+        puzzleContext.strokeRect(
+            partsShuffled[linearIndex].x, partsShuffled[linearIndex].y,
+            partsShuffled[linearIndex].width, partsShuffled[linearIndex].height);
+
+
+
+    });
+
+    function getParts(context){
+        var parts = [],
+            particle = new Particle(context, 0, 0, 100, 100);
+        particle.setPixelsGray();
         for(var i = 0; i <= 4; i++){
             for( var j = 0; j <= 4; j++){
-                parts.push(context.getImageData(i*100,j*100,i*100+100,j*100+100));
+                particle = context.getImageData(i*partWidth,j*partHeight,i*partWidth+partWidth,j*partHeight+partHeight);
+                particle.x = i*partWidth;
+                particle.y = j*partHeight;
+                particle.xWidth = partWidth;
+                particle.yHeight = partHeight;
+                console.log(particle);
+                parts.push(particle);
             }
         }
         return parts;
     }
 
     function drawParts(parts, context){
-        for(var i = 0; i <= 4; i++){
-            for( var j = 0; j <= 4; j++){
-                context.putImageData(parts.shift(), i*100, j*100);
+        var partsLocal = [], i, j;
+        for(i = 0; i < parts.length; i++){
+            partsLocal.push(parts[i]);
+        }
+        for(i = 0; i <= 4; i++){
+            for(j = 0; j <= 4; j++){
+                context.putImageData(partsLocal.shift(), i*partWidth, j*partHeight);
             }
         }
     }
@@ -52,7 +122,7 @@
 
             for( var j = 0; j <= 4; j++){
 
-                context.strokeRect(i*100,j*100,i*100+100,j*100+100);
+                context.strokeRect(i*partWidth,j*partHeight,i*partWidth+partWidth,j*partHeight+partHeight);
 
             }
 
