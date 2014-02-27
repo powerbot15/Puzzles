@@ -7,18 +7,23 @@
             originalContext = originalImage.getContext('2d'),
             puzzleImage = document.getElementsByClassName('shuffled')[0],
             puzzleContext = puzzleImage.getContext('2d'),
-            parts;
+            parts,
+            grayImage;
 
-        originalImage.width = image.width;
-        originalImage.height = image.height;
-        puzzleImage.width = image.width;
-        puzzleImage.height = image.height;
+        originalImage.width = puzzleImage.width = image.width;
+        originalImage.height = puzzleImage.height = image.height;
+
+
         originalContext.drawImage(image, 0, 0, image.width, image.height);
-        console.log(originalContext);
         parts = getParts(originalContext).shuffle();
+        grayImage = changeColorsToGrayScale(originalContext);
+        originalContext.clearRect(0, 0, image.width, image.height);
+        originalContext.putImageData(grayImage, 0, 0);
+
         drawParts(parts, puzzleContext);
         drawGrid(originalContext);
         drawGrid(puzzleContext);
+
     });
 
     function getParts(context){
@@ -42,7 +47,7 @@
 
     function drawGrid(context){
 
-        context.strokeStyle = 'red';
+        context.strokeStyle = 'black';
         for(var i = 0; i <= 4; i++){
 
             for( var j = 0; j <= 4; j++){
@@ -53,6 +58,20 @@
 
         }
     }
+
+    function changeColorsToGrayScale(context){
+        var pixelsData = context.getImageData(0, 0, context.canvas.width, context.canvas.height),
+            grayIntensity;
+        for(var i = 0; i < pixelsData.data.length; i += 4){
+            grayIntensity = (pixelsData.data[i] + pixelsData.data[i+1] + pixelsData.data[i+2]) / 3;
+            grayIntensity += 100;
+            pixelsData.data[i] = grayIntensity;
+            pixelsData.data[i+1] = grayIntensity;
+            pixelsData.data[i+2] = grayIntensity;
+        }
+        return pixelsData;
+    }
+
     Array.prototype.shuffle = function(){
         var
             randomIndex,
@@ -79,20 +98,3 @@
     }
 
 })();
-/*jQuery(function($){
-
-    var image,originalImage,originalContext;
-    image = $('.hidden').get(0);
-    originalImage = document.getElementsByClassName('original')[0];
-    originalContext = originalImage.getContext('2d');
-
-    console.log(image);
-    console.log(image.width);
-    console.log(originalImage);
-    originalImage.width = image.width;
-    originalImage.height = image.height;
-    originalContext.drawImage(image, 0, 0, image.width, image.height);
-    console.log(image.src);
-
-
-});*/

@@ -1,9 +1,45 @@
 .hidden{
 
     display: none;
-    width: 500;
-    height: 500;
+/*    width: 500;
+    height: 500;*/
 
+}
+.wrapper{
+    width:100%;
+    margin: auto;
+    border: 1px solid gray ;
+    box-shadow: 2px 2px 4px rgba(150, 150, 150, 0.8);
+    min-width: 1200px;
+
+}
+.view{
+    margin: auto 5px;
+}
+.nav{
+    position: relative;
+    width: 10%;
+    margin: auto;
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.nav>ul{
+    list-style: none;
+    margin: 0;
+    padding: 20px;
+}
+.puzzle-field{
+    width: 88%;
+    margin: auto;
+    display: inline-block;
+    border-left: 3px solid green;
+    min-width: 1050px;
+    text-align: left;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 .original{
     /*border: 1px solid black;*/
