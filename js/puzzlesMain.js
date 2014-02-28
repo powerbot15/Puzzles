@@ -5,10 +5,8 @@
         this.imagePart = context.getImageData(xStart, yStart, xStart+xWidth, yStart+yHeight);
         this.imagePartGray = context.getImageData(xStart, yStart, xStart+xWidth, yStart+yHeight);
         this.xOrigStart = xStart;
-        this.xShuffledStart = xStart;
         this.xOrigWidth = xWidth;
         this.yOrigStart = yStart;
-        this.yShuffledStart = yStart;
         this.yOrigHeight = yHeight;
 
 
@@ -20,10 +18,6 @@
     Particle.prototype.xOrigWidth = 0;
     Particle.prototype.yOrigStart = 0;
     Particle.prototype.yOrigHeight = 0;
-    Particle.prototype.xShuffledStart = 0;
-    Particle.prototype.xShuffledWidth = 0;
-    Particle.prototype.yShuffledStart = 0;
-    Particle.prototype.yShuffledHeight = 0;
     Particle.prototype.borderedRed = false;
 
 
@@ -31,7 +25,8 @@
         var grayIntensity;
         for(var i = 0; i < this.imagePartGray.data.length; i += 4){
             grayIntensity = (this.imagePartGray.data[i] + this.imagePartGray.data[i+1] + this.imagePartGray.data[i+2]) / 3;
-            grayIntensity += 100; //lightening gray color
+            grayIntensity = grayIntensity > 127 ? 0 : 255;
+            //grayIntensity += 100; //lightening gray color
             this.imagePartGray.data[i] = grayIntensity;
             this.imagePartGray.data[i+1] = grayIntensity;
             this.imagePartGray.data[i+2] = grayIntensity;
@@ -39,12 +34,12 @@
         return this;
     };
 
-    Particle.prototype.drawColor = function(context){
-        context.putImageData(this.imagePart, this.xShuffledStart, this.yShuffledStart);
+    Particle.prototype.drawInColor = function(context){
+        context.putImageData(this.imagePart, this.xOrigStart, this.yOrigStart);
         return this;
     };
 
-    Particle.prototype.drawGray = function(context){
+    Particle.prototype.drawInGrayScale = function(context){
         context.putImageData(this.imagePartGray, this.xOrigStart, this.yOrigStart);
         return this;
     };
@@ -53,8 +48,22 @@
         context.strokeStyle = color;
         context.strokeRect(this.xOrigStart, this.yOrigStart, this.xOrigWidth, this.yOrigHeight);
         return this;
-    }
+    };
+    Particle.prototype.clearSelfView = function(context){
+        context.clearRect(this.xOrigStart, this.yOrigStart, this.xOrigWidth, this.yOrigHeight);
+        return this;
+    };
+    Particle.prototype.move = function(startContext, destinationContext, destinationCoordinates){
 
+        this.clearSelfView(startContext);
+        this.xOrigStart = destinationCoordinates.x;
+        this.yOrigStart = destinationCoordinates.y;
+        this.drawInColor(destinationContext);
+
+
+        return this;
+        //TODO code when moved after click (need to create canvas at coords)
+    };
 
 
     var image = document.getElementsByClassName('hidden')[0],
@@ -93,6 +102,7 @@
         for(var i = 0; i < parts.length; i++){
             if(parts[i].borderedRed){
                 parts[i].borderedRed = false;
+                parts[i].clearSelfView(puzzleContext).drawInColor(puzzleContext).drawBorder('green', puzzleContext);
                 parts[i].drawBorder('green', puzzleContext);
             }
         }
@@ -128,12 +138,12 @@
 
         if(colored === 'colored'){
             for(i = 0; i < parts.length; i++){
-                parts[i].drawColor(context).drawBorder('green', context);
+                parts[i].drawInColor(context).drawBorder('green', context);
             }
             return;
         }
         for(i = 0; i < parts.length; i++){
-            parts[i].drawGray(context).drawBorder('green', context);
+            parts[i].drawInGrayScale(context).drawBorder('green', context);
 
         }
     }
