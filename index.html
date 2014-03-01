@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="css/styles.css"/>
     <meta charset="utf-8"/>
     <script src = "js/lib/jquery/dist/jquery.js"></script>
+    <script src = "js/lib/jqueryui/ui/jquery-ui.js"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -14,11 +15,95 @@
         </ul>
     </div>
     <div class="puzzle-field">
-        <img class="hidden" src="img/mushroom.jpg"/>
-        <canvas class="original view"></canvas>
-        <canvas class="shuffled view"></canvas>
+        <div class="original-view-container">
+            <img id="hidden-original" src="img/mushroom.jpg"/>
+            <canvas class="help-view"></canvas>
+            <table class="original-view">
+                <tbody>
+                    <tr>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                    </tr>
+                    <tr>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                    </tr>
+                    <tr>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                    </tr>
+                    <tr>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                    </tr>
+                    <tr>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="shuffled-view-container">
+            <table class="shuffled-view">
+                <tbody>
+                <tr>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                </tr>
+                <tr>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                </tr>
+                <tr>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                </tr>
+                <tr>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                </tr>
+                <tr>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                    <td class="place"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--canvas class="original view"></canvas>
+        <canvas class="shuffled view"></canvas-->
     </div>
 </div>
-<script src="js/puzzlesMain.js"></script>
+<script src="js/puzzles.js"></script>
 </body>
 </html>

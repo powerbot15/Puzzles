@@ -1,8 +1,8 @@
-.hidden{
+#hidden-original{
 
     display: none;
-/*    width: 500;
-    height: 500;*/
+    width: 500px;
+    height: 500px;
 
 }
 .wrapper{
@@ -41,7 +41,45 @@
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 15px;
+    height: 600px;
 }
-.original{
-    /*border: 1px solid black;*/
+
+.original-view-container *, .shuffled-view-container *{
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+}
+.original-view-container, .shuffled-view-container{
+    position: relative;
+    margin: 0 10px 0 10px;
+    padding: 0;
+    width: 500px;
+    height: 500px;
+    display: inline-block;
+}
+.help-view{
+    position: absolute;
+    width: 500px;
+    height: 500px;
+}
+.original-view, .shuffled-view{
+    position: absolute;
+    border-collapse: collapse;
+    border: 1px solid green;
+    width: 500px;
+    height: 500px;
+}
+.shuffled-view .place{
+    border: 1px solid green;
+}
+.place{
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+
+}
+.particle{
+    width: 100px;
+    height: 100px;
 }
