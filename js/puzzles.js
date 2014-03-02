@@ -1,10 +1,17 @@
 (function($){
 
+/*    $(function(){     //WTF? In this way it doesn't working!
+        var field = new GameField();
+        field.createField();
+        console.log(field);
+    });*/
+
     window.addEventListener('load', function(){
 
         var field = new GameField();
         field.createField();
         console.log(field);
+
     });
 
 //region =================== Implementation ================
