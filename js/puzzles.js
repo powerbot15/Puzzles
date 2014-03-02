@@ -87,13 +87,12 @@
 
     };
 
-
     GameField.prototype.convertColors = function(pixelsArray){
 
         var pxLength = pixelsArray.data.length, gray, i;
         for(i = 0; i < pxLength; i += 4){
             gray = (pixelsArray.data[i] + pixelsArray.data[i+1] + pixelsArray.data[i+2]) / 3;
-            gray = gray > 127 ? 0 : 255;
+            gray = gray > 127 ? 255 : 0;
             pixelsArray.data[i] = pixelsArray.data[i+1] = pixelsArray.data[i+2] = gray;
         }
         return pixelsArray;
