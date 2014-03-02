@@ -6,7 +6,7 @@
 
 }
 .wrapper{
-    width:100%;
+    width:1250px;
     margin: auto;
     border: 1px solid gray ;
     box-shadow: 2px 2px 4px rgba(150, 150, 150, 0.8);
@@ -18,7 +18,7 @@
 }
 .nav{
     position: relative;
-    width: 10%;
+    width: 150px;
     margin: auto;
     display: inline-block;
     vertical-align: top;
@@ -32,7 +32,7 @@
     padding: 20px;
 }
 .puzzle-field{
-    width: 88%;
+    width: 1050px;
     margin: auto;
     display: inline-block;
     border-left: 3px solid green;
