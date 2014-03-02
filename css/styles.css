@@ -6,11 +6,12 @@
 
 }
 .wrapper{
-    width:1250px;
+    width:1208px;
     margin: auto;
     border: 1px solid gray ;
     box-shadow: 2px 2px 4px rgba(150, 150, 150, 0.8);
     min-width: 1200px;
+    background-color: rosybrown;
 
 }
 .view{
@@ -26,6 +27,14 @@
     padding-top: 20px;
     padding-bottom: 20px;
 }
+.nav a{
+    font-size: 14pt;
+    font-weight: bolder;
+    color: purple;
+}
+.nav a:hover{
+    color: white;
+}
 .nav>ul{
     list-style: none;
     margin: 0;
@@ -40,11 +49,12 @@
     text-align: left;
     padding-top: 20px;
     padding-bottom: 20px;
-    padding-left: 15px;
     height: 600px;
+    background-color: #ffef8f;
 }
 .puzzle-wrapper{
     text-align: center;
+
 }
 .original-view-container *, .shuffled-view-container *{
     margin: 0;
@@ -85,4 +95,7 @@
 .particle{
     width: 100px;
     height: 100px;
+}
+#when-collected{
+    color: green;
 }

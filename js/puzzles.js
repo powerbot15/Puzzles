@@ -1,6 +1,14 @@
 (function($){
 
-//region ================= Particle Class ==============
+    window.addEventListener('load', function(){
+
+        var field = new GameField();
+        field.createField();
+        console.log(field);
+    });
+
+//region =================== Implementation ================
+    //region ================= Particle Class ==============
 
     function Particle(pixels, originalIndex, shuffledIndex){
 
@@ -10,10 +18,8 @@
         this.$element.get(0).height = 100;
         this.context = this.$element.get(0).getContext('2d');
         this.context.putImageData(pixels, 0, 0);
-        this.originalIndex = originalIndex;
-        this.$element.originalIndex = originalIndex;
-        this.shuffledIndex = shuffledIndex;
-        this.$element.shuffledIndex = shuffledIndex;
+        this.$element.get(0).originalIndex = originalIndex;
+        this.$element.get(0).shuffledIndex = shuffledIndex;
 
         this.$element.draggable({zIndex: 100}).disableSelection();
 
@@ -24,9 +30,6 @@
     Particle.prototype.originalIndex = 0;
     Particle.prototype.shuffledIndex = 0;
 
-    Particle.prototype.moveOnDrop = function(){
-        //TODO implement doings when particle dropped on tha area of original view
-    };
 
 //endregion
 
@@ -36,7 +39,6 @@
 
         this.particles = [];
         this.shuffledIndexes = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24].shuffle();
-        this.createField();
 
     }
     GameField.prototype.particles = [];
@@ -49,7 +51,8 @@
             drownImageContext  = drownImage.getContext('2d'),
             imageWidth = 500,//originalImage.width*(originalImage.width/500),
             imageHeight = 500,//originalImage.height*(originalImage.height/500),
-            pixelsColor;
+            pixelsColor,
+            self;
         drownImage.width = imageWidth;
         drownImage.height = imageHeight;
         drownImageContext.drawImage(originalImage, 0, 0, imageWidth, imageHeight);
@@ -58,6 +61,8 @@
         this.getParticles(drownImageContext, 100, 100);
 
         this.placeParticles();
+
+        self = this;
 
         $('body').droppable({
             drop: function(e, ui){
@@ -79,9 +84,11 @@
 
                 ui.draggable.css('top', '0px');
                 ui.draggable.css('left', '0px');
+                ui.draggable.get(0).shuffledIndex = $(this).index('.place');
                 ui.draggable.appendTo(this);
-//                ui.draggable.shuffledIndex = $(this).index();
-
+                if(self.checkSequence()){
+                    $('#when-collected').text('Все правильно !!!');
+                }
             }
         }).disableSelection();
 
@@ -108,8 +115,8 @@
 
                 this.particles.push(new Particle(
                     context.getImageData(j * particleWidth, i * particleHeight,
-                    j * particleWidth + particleWidth,
-                    i * particleHeight + particleHeight),
+                        j * particleWidth + particleWidth,
+                        i * particleHeight + particleHeight),
                     originalIndex,
                     this.shuffledIndexes[originalIndex])
                 );
@@ -124,8 +131,19 @@
         var $places = $('.shuffled-view .place'), i;
 
         for(i = 0; i < $places.length; i++){
-            $places.eq(this.particles[i].shuffledIndex).append(this.particles[i].$element.get(0));
+            $places.eq(this.particles[i].$element.get(0).shuffledIndex).append(this.particles[i].$element.get(0));
         }
+    };
+
+    GameField.prototype.checkSequence = function(){
+
+        for(var i = 0; i < this.particles.length; i++){
+            if(this.particles[i].$element.get(0).originalIndex != this.particles[i].$element.get(0).shuffledIndex){
+                return false;
+            }
+        }
+        return true;
+
     };
 
 //endregion
@@ -154,11 +172,8 @@
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    window.addEventListener('load', function(){
+//endregion
 
-        var field = new GameField();
-        field.createField();
-        console.log(field);
-    });
+
 })(jQuery);
 
