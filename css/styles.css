@@ -1,3 +1,6 @@
+body{
+    background-color: lightblue;
+}
 #hidden-original{
 
     display: none;
@@ -10,7 +13,6 @@
     margin: auto;
     border: 1px solid gray ;
     box-shadow: 2px 2px 4px rgba(150, 150, 150, 0.8);
-    min-width: 1200px;
     background-color: rosybrown;
 
 }
@@ -45,7 +47,6 @@
     margin: auto;
     display: inline-block;
     border-left: 3px solid green;
-    min-width: 1050px;
     text-align: left;
     padding-top: 20px;
     padding-bottom: 20px;
