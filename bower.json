@@ -1,0 +1,13 @@
+{
+  "name": "Puzzles",
+  "version": "0.0.1",
+  "homepage": "https://github.com/powerbot15/Puzzles",
+  "authors": [
+    "Oleh Kastornov <powerbot15@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~1.11.0",
+    "jqueryui": "~1.10.4"
+  }
+}
