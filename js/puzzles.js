@@ -11,7 +11,9 @@
         this.context = this.$element.get(0).getContext('2d');
         this.context.putImageData(pixels, 0, 0);
         this.originalIndex = originalIndex;
+        this.$element.originalIndex = originalIndex;
         this.shuffledIndex = shuffledIndex;
+        this.$element.shuffledIndex = shuffledIndex;
 
         this.$element.draggable({zIndex: 100}).disableSelection();
 
@@ -45,8 +47,8 @@
         var originalImage = document.getElementById('hidden-original'),
             drownImage = document.getElementsByClassName('help-view')[0],
             drownImageContext  = drownImage.getContext('2d'),
-            imageWidth = originalImage.width,
-            imageHeight = originalImage.height,
+            imageWidth = 500,//originalImage.width*(originalImage.width/500),
+            imageHeight = 500,//originalImage.height*(originalImage.height/500),
             pixelsColor;
         drownImage.width = imageWidth;
         drownImage.height = imageHeight;
@@ -63,7 +65,6 @@
                 ui.draggable.css('left', '0px');
             }
         });
-
         $('.place').droppable({
             drop: function (e, ui) {
                 var td = $(this),
@@ -79,6 +80,7 @@
                 ui.draggable.css('top', '0px');
                 ui.draggable.css('left', '0px');
                 ui.draggable.appendTo(this);
+//                ui.draggable.shuffledIndex = $(this).index();
 
             }
         }).disableSelection();
