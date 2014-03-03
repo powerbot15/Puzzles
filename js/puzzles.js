@@ -9,7 +9,7 @@
     $(window).on('load', function(){
 
         var field = new GameField();
-        field.createField();
+
         console.log(field);
 
     });
@@ -18,16 +18,18 @@
     //region ================= Particle Class ==============
 
     function Particle(pixels, originalIndex, shuffledIndex){
-
+        var elementHTML;
         this.$element = $('<canvas>');
         this.$element.addClass('particle');
-        this.$element.get(0).width = 100;
-        this.$element.get(0).height = 100;
-        this.$element.get(0).getContext('2d').putImageData(pixels, 0, 0);
-        this.$element.get(0).originalIndex = originalIndex;
-        this.$element.get(0).shuffledIndex = shuffledIndex;
+        elementHTML = this.$element.get(0);
+        elementHTML.width = 100;
+        elementHTML.height = 100;
+        elementHTML.getContext('2d').putImageData(pixels, 0, 0);
+        elementHTML.originalIndex = originalIndex;
+        elementHTML.shuffledIndex = shuffledIndex;
 
         this.$element.draggable({zIndex: 100}).disableSelection();
+
 
     }
 
@@ -38,10 +40,18 @@
     function GameField(){
 
         this.particles = [];
-        this.shuffledIndexes = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24].shuffle();
+        this.shuffledIndexes = this.createPlainIndexes(25).shuffle();
+        this.createField();
 
     }
 
+    GameField.prototype.createPlainIndexes = function(count){
+        var resultArray = [], i;
+        for(i = 0; i < count; i++){
+            resultArray.push(i);
+        }
+        return resultArray;
+    };
     GameField.prototype.createField = function(){
 
         var originalImage = $('#hidden-original').get(0),
@@ -56,7 +66,7 @@
         drownImageContext.drawImage(originalImage, 0, 0, imageWidth, imageHeight);
         pixelsColor = drownImageContext.getImageData(0, 0, imageWidth, imageHeight);
 
-        this.getParticles(drownImageContext, 100, 100);
+        this.createParticlesFromImage(drownImageContext, 100, 100);
         this.placeParticles();
 
         self = this;
@@ -104,7 +114,7 @@
         return pixelsArray;
     };
 
-    GameField.prototype.getParticles = function(context, particleWidth, particleHeight){
+    GameField.prototype.createParticlesFromImage = function(context, particleWidth, particleHeight){
         var originalIndex = 0;
 
         for(var i = 0; i <= 4; i++){
