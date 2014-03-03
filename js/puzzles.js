@@ -6,7 +6,7 @@
         console.log(field);
     });*/
 
-    window.addEventListener('load', function(){
+    $(window).on('load', function(){
 
         var field = new GameField();
         field.createField();
@@ -44,8 +44,8 @@
 
     GameField.prototype.createField = function(){
 
-        var originalImage = document.getElementById('hidden-original'),
-            drownImage = document.getElementsByClassName('help-view')[0],
+        var originalImage = $('#hidden-original').get(0),
+            drownImage = $('.help-view').get(0),
             drownImageContext  = drownImage.getContext('2d'),
             imageWidth = 500,//originalImage.width*(originalImage.width/500),
             imageHeight = 500,//originalImage.height*(originalImage.height/500),
