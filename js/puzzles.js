@@ -23,20 +23,13 @@
         this.$element.addClass('particle');
         this.$element.get(0).width = 100;
         this.$element.get(0).height = 100;
-        this.context = this.$element.get(0).getContext('2d');
-        this.context.putImageData(pixels, 0, 0);
+        this.$element.get(0).getContext('2d').putImageData(pixels, 0, 0);
         this.$element.get(0).originalIndex = originalIndex;
         this.$element.get(0).shuffledIndex = shuffledIndex;
 
         this.$element.draggable({zIndex: 100}).disableSelection();
 
     }
-
-    Particle.prototype.element = {};
-    Particle.prototype.context = {};
-    Particle.prototype.originalIndex = 0;
-    Particle.prototype.shuffledIndex = 0;
-
 
 //endregion
 
@@ -48,8 +41,6 @@
         this.shuffledIndexes = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24].shuffle();
 
     }
-    GameField.prototype.particles = [];
-    GameField.prototype.shuffledIndexes = [];
 
     GameField.prototype.createField = function(){
 
@@ -66,7 +57,6 @@
         pixelsColor = drownImageContext.getImageData(0, 0, imageWidth, imageHeight);
 
         this.getParticles(drownImageContext, 100, 100);
-
         this.placeParticles();
 
         self = this;
