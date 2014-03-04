@@ -36,12 +36,17 @@ body{
     font-size: 14pt;
     font-weight: bolder;
     color: indigo;
+    cursor: pointer;
 
 }
 .nav li:hover{
-    cursor: pointer;
+
     color: #ffffff;
     background-color: navy;
+}
+.nav li:active{
+    color: red;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.9);
 }
 
 .nav>ul{
