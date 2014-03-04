@@ -12,15 +12,13 @@
 
         imageToUse.get(0).src = 'img/mushroom.jpg';
 
-        $('#menu').on('click', 'a', function(event){
-            console.dir(event.target);
-            imageToUse.get(0).src = event.target.pathname;
+        $('#menu').on('click','li', function(event){
+            imageToUse.get(0).src = $(event.target).attr('id');
             return false;
         });
 
         imageToUse.on('load', function(){
             field.createField();
-            console.log(field);
         });
 
     });
@@ -52,7 +50,6 @@
 
         this.particles = [];
         this.shuffledIndexes = this.createPlainIndexes(25).shuffle();
-//        this.createField();
 
     }
 
