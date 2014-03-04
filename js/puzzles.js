@@ -7,10 +7,20 @@
     });*/
 
     $(window).on('load', function(){
+        var imageToUse = $('#hidden-original');
 
-        var field = new GameField();
+        imageToUse.get(0).src = 'img/mushroom.jpg';
 
-        console.log(field);
+        $('#menu').on('click', 'a', function(event){
+            console.dir(event.target);
+            imageToUse.get(0).src = event.target.pathname;
+            return false;
+        });
+
+        imageToUse.on('load', function(){
+            var field = new GameField();
+            console.log(field);
+        });
 
     });
 
