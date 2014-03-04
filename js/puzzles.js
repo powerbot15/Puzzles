@@ -7,7 +7,8 @@
     });*/
 
     $(window).on('load', function(){
-        var imageToUse = $('#hidden-original');
+        var imageToUse = $('#hidden-original'),
+            field = new GameField();
 
         imageToUse.get(0).src = 'img/mushroom.jpg';
 
@@ -18,7 +19,7 @@
         });
 
         imageToUse.on('load', function(){
-            var field = new GameField();
+            field.createField();
             console.log(field);
         });
 
@@ -51,7 +52,7 @@
 
         this.particles = [];
         this.shuffledIndexes = this.createPlainIndexes(25).shuffle();
-        this.createField();
+//        this.createField();
 
     }
 
@@ -67,15 +68,18 @@
         var originalImage = $('#hidden-original').get(0),
             drownImage = $('.help-view').get(0),
             drownImageContext  = drownImage.getContext('2d'),
+            winString = $('#when-collected'),
             imageWidth = 500,//originalImage.width*(originalImage.width/500),
             imageHeight = 500,//originalImage.height*(originalImage.height/500),
             pixelsColor,
             self;
+
+        winString.text('');
         drownImage.width = imageWidth;
         drownImage.height = imageHeight;
         drownImageContext.drawImage(originalImage, 0, 0, imageWidth, imageHeight);
         pixelsColor = drownImageContext.getImageData(0, 0, imageWidth, imageHeight);
-
+        this.shuffledIndexes = this.createPlainIndexes(25).shuffle();
         this.createParticlesFromImage(drownImageContext, 100, 100);
         this.placeParticles();
 
@@ -104,7 +108,7 @@
                 ui.draggable.get(0).shuffledIndex = $(this).index('.place');
                 ui.draggable.appendTo(this);
                 if(self.checkSequence()){
-                    $('#when-collected').text('Все правильно !!!');
+                    winString.text('Все правильно !!!');
                 }
             }
         }).disableSelection();
@@ -126,7 +130,7 @@
 
     GameField.prototype.createParticlesFromImage = function(context, particleWidth, particleHeight){
         var originalIndex = 0;
-
+        this.particles = [];
         for(var i = 0; i <= 4; i++){
             for( var j = 0; j <= 4; j++){
 
@@ -146,6 +150,8 @@
 
     GameField.prototype.placeParticles = function(){
         var $places = $('.shuffled-view .place'), i;
+
+        $('.place').children().remove();
 
         for(i = 0; i < $places.length; i++){
             $places.eq(this.particles[i].$element.get(0).shuffledIndex).append(this.particles[i].$element.get(0));
