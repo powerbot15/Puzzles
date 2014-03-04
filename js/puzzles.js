@@ -21,8 +21,6 @@
             }, delay);
 
             delay += 200;
-            console.log(this);
-
         });
         $imageToUse.get(0).src = 'img/mushroom.jpg';
 
