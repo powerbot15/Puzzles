@@ -7,17 +7,31 @@
     });*/
 
     $(window).on('load', function(){
-        var imageToUse = $('#hidden-original'),
-            field = new GameField();
+        var $imageToUse = $('#hidden-original'),
+            field = new GameField(),
+            $menuItems = $('.menu-item'),
+            delay = 500;
 
-        imageToUse.get(0).src = 'img/mushroom.jpg';
+        $menuItems.each(function(){
+            var self = this;
+            setTimeout(function(){
+                $(self).animate({
+                    width: "+=120"
+                }, 200);
+            }, delay);
+
+            delay += 200;
+            console.log(this);
+
+        });
+        $imageToUse.get(0).src = 'img/mushroom.jpg';
 
         $('#menu').on('click','li', function(event){
-            imageToUse.get(0).src = event.target.id;
+            $imageToUse.get(0).src = event.target.id;
             return false;
         });
 
-        imageToUse.on('load', function(){
+        $imageToUse.on('load', function(){
             field.createField();
         });
 

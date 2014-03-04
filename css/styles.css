@@ -30,6 +30,7 @@ body{
     padding-bottom: 20px;
 }
 .nav li{
+    position: relative;
     margin-top: 5px;
     margin-bottom: 5px;
     background-color: wheat;
@@ -37,6 +38,8 @@ body{
     font-weight: bolder;
     color: indigo;
     cursor: pointer;
+    width: 0;
+    overflow: hidden;
 
 }
 .nav li:hover{
