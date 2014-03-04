@@ -10,18 +10,9 @@
         var $imageToUse = $('#hidden-original'),
             field = new GameField(),
             $menuItems = $('.menu-item'),
-            delay = 500;
+            delay = 500,
+            menuAnimated = false;
 
-        $menuItems.each(function(){
-            var self = this;
-            setTimeout(function(){
-                $(self).animate({
-                    width: "+=120"
-                }, 200);
-            }, delay);
-
-            delay += 200;
-        });
         $imageToUse.get(0).src = 'img/mushroom.jpg';
 
         $('#menu').on('click','li', function(event){
@@ -31,6 +22,20 @@
 
         $imageToUse.on('load', function(){
             field.createField();
+            if(!menuAnimated){
+                $menuItems.each(function(){
+                    var self = this;
+                    setTimeout(function(){
+                        $(self).animate({
+                            width: "+=120"
+                        }, 200);
+                    }, delay);
+
+                    delay += 200;
+                });
+                menuAnimated = true;
+            }
+
         });
 
     });
