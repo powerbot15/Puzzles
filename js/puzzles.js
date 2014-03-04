@@ -13,7 +13,7 @@
         imageToUse.get(0).src = 'img/mushroom.jpg';
 
         $('#menu').on('click','li', function(event){
-            imageToUse.get(0).src = $(event.target).attr('id');
+            imageToUse.get(0).src = event.target.id;
             return false;
         });
 
