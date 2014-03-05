@@ -123,22 +123,13 @@ body{
     z-index: 150;
     background-color: steelblue;
     opacity: 0.8;
-    /*display: none;*/
     text-align: center;
 }
 .load-progress{
-    /*position: relative;*/
     display: inline-block;
     width: 50px;
     height: 50px;
     margin-top: 200px;
-    /*vertical-align: middle;*/
-
-    /*margin-left: 50%;*/
-    /*left:-50px;*/
-    /*margin-top: 20%;*/
-    /*top: -50px;*/
-    /*background-color: red;*/
     opacity: 1;
 
 }
