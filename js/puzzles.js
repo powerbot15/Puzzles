@@ -11,17 +11,20 @@
             field = new GameField(),
             $menuItems = $('.menu-item'),
             delay = 500,
-            menuAnimated = false;
+            menuAnimated = false,
+            $loader = $('#loader');
 
         $imageToUse.get(0).src = 'img/mushroom.jpg';
 
         $('#menu').on('click','li', function(event){
+            $loader.css({display:""});
             $imageToUse.get(0).src = event.target.id;
             return false;
         });
 
         $imageToUse.on('load', function(){
             field.createField();
+            $loader.css({display:'none'});
             if(!menuAnimated){
                 $menuItems.each(function(){
                     var self = this;
