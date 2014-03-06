@@ -18,8 +18,11 @@
 
         $('#menu').on('click','.menu-item', function(event){
             $loader.css({display:""});
-            $imageToUse.get(0).src = event.target.id;
-            return false;
+            if(!$imageToUse.get(0).src.match(event.target.id)){
+                $imageToUse.get(0).src = event.target.id;
+                return false;
+            }
+            $loader.css({display:"none"});
         });
 
         $imageToUse.on('load', function(){
@@ -70,7 +73,7 @@
 
         this.particles = [];
         this.shuffledIndexes = this.createPlainIndexes(25).shuffle();
-        this.countSteps = 0;
+        this.countSteps = -1;
         this.countCollected = 0;
         this.$countCollectedView = $('#collected');
         this.$countStepsView = $('#steps');
@@ -114,10 +117,10 @@
         drownImageContext.drawImage(originalImage, 0, 0, imageWidth, imageHeight);
         pixelsColor = drownImageContext.getImageData(0, 0, imageWidth, imageHeight);
         this.shuffledIndexes = this.createPlainIndexes(25).shuffle();
+        this.countSteps = -1;
         this.createParticlesFromImage(drownImageContext, 100, 100);
         this.placeParticles();
-        this.countSteps = 0;
-
+        this.updateGameInformation();
         self = this;
 
         $('body').droppable({
