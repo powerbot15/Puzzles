@@ -63,13 +63,25 @@ body{
     display: inline-block;
     border-left: 3px solid green;
     text-align: left;
-    padding-top: 20px;
     padding-bottom: 20px;
     background-color: #ffef8f;
 }
 .puzzle-wrapper{
     text-align: center;
 
+}
+.header{
+    margin: 10px 0;
+}
+.game-information{
+    color: midnightblue;
+    font-size: 25px;
+}
+.game-information>p{
+    margin: 5px 0;
+}
+#collected, #steps{
+    color: red;
 }
 .original-view-container *, .shuffled-view-container *{
     margin: 0;

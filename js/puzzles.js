@@ -16,7 +16,7 @@
 
         $imageToUse.get(0).src = 'img/mushroom.jpg';
 
-        $('#menu').on('click','li', function(event){
+        $('#menu').on('click','.menu-item', function(event){
             $loader.css({display:""});
             $imageToUse.get(0).src = event.target.id;
             return false;
@@ -70,6 +70,10 @@
 
         this.particles = [];
         this.shuffledIndexes = this.createPlainIndexes(25).shuffle();
+        this.countSteps = 0;
+        this.countCollected = 0;
+        this.$countCollectedView = $('#collected');
+        this.$countStepsView = $('#steps');
 
     }
 
@@ -79,6 +83,19 @@
             resultArray.push(i);
         }
         return resultArray;
+    };
+    GameField.prototype.updateGameInformation = function(){
+        var currentElement;
+        this.countSteps++ ;
+        this.countCollected = 0;
+        for(var i = 0; i < this.particles.length; i++){
+            currentElement =this.particles[i].$element.get(0);
+            if(currentElement.shuffledIndex === currentElement.originalIndex){
+                this.countCollected++;
+            }
+        }
+        this.$countCollectedView.html(this.countCollected+'/25');
+        this.$countStepsView.html(this.countSteps);
     };
     GameField.prototype.createField = function(){
 
@@ -99,6 +116,7 @@
         this.shuffledIndexes = this.createPlainIndexes(25).shuffle();
         this.createParticlesFromImage(drownImageContext, 100, 100);
         this.placeParticles();
+        this.countSteps = 0;
 
         self = this;
 
@@ -110,20 +128,20 @@
         });
         $('.place').droppable({
             drop: function (e, ui) {
-                var td = $(this),
-                    distanceX = Math.abs(ui.position.left),
-                    distanceY = Math.abs(ui.position.top);
+                var $td = $(this),
+                    $draggable = ui.draggable;
 
-                if (td.children().length > 0){
-                    ui.draggable.css('top', '0px');
-                    ui.draggable.css('left', '0px');
+                if ($td.children().length > 0){
+                    $draggable.css('top', '0px');
+                    $draggable.css('left', '0px');
                     return;
                 }
 
-                ui.draggable.css('top', '0px');
-                ui.draggable.css('left', '0px');
-                ui.draggable.get(0).shuffledIndex = $(this).index('.place');
-                ui.draggable.appendTo(this);
+                $draggable.css('top', '0px');
+                $draggable.css('left', '0px');
+                $draggable.get(0).shuffledIndex = $(this).index('.place');
+                $draggable.appendTo(this);
+                self.updateGameInformation();
                 if(self.checkSequence()){
                     winString.text('Все правильно !!!');
                 }
@@ -166,12 +184,14 @@
     };
 
     GameField.prototype.placeParticles = function(){
-        var $places = $('.shuffled-view .place'), i;
+        var $places = $('.shuffled-view .place'), i, currentParticleElement;
 
         $('.place').children().remove();
 
         for(i = 0; i < $places.length; i++){
-            $places.eq(this.particles[i].$element.get(0).shuffledIndex).append(this.particles[i].$element.get(0));
+            currentParticleElement = this.particles[i].$element.get(0)
+            $places.eq(currentParticleElement.shuffledIndex).append(currentParticleElement);
+            currentParticleElement.shuffledIndex = $places.eq(currentParticleElement.shuffledIndex).index('.place');
         }
     };
 

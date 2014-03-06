@@ -26,92 +26,96 @@
     </div>
     <div class="puzzle-field">
         <div class="puzzle-wrapper">
-            <h1>Перетаскивайте части пазла с правой картинки на левую</h1>
-        <div class="original-view-container">
-            <img id="hidden-original" src=""/>
-            <canvas class="help-view"></canvas>
-            <table class="original-view">
-                <tbody>
-                    <tr>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                    </tr>
-                    <tr>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                    </tr>
-                    <tr>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                    </tr>
-                    <tr>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                    </tr>
-                    <tr>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                        <td class="place"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="shuffled-view-container">
-            <table class="shuffled-view">
-                <tbody>
-                <tr>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                </tr>
-                <tr>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                </tr>
-                <tr>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                </tr>
-                <tr>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                </tr>
-                <tr>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                    <td class="place"></td>
-                </tr>
-                </tbody>
-            </table>
+            <h1 class="header">Перетаскивайте части пазла с правой картинки на левую</h1>
+            <div class="game-information">
+                <p>Собрано: <span id="collected">0/25</span> Ходов: <span id="steps">0</span></p>
+            </div>
 
-        </div>
+            <div class="original-view-container">
+                <img id="hidden-original" src=""/>
+                <canvas class="help-view"></canvas>
+                <table class="original-view">
+                    <tbody>
+                        <tr>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                        </tr>
+                        <tr>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                        </tr>
+                        <tr>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                        </tr>
+                        <tr>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                        </tr>
+                        <tr>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                            <td class="place"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="shuffled-view-container">
+                <table class="shuffled-view">
+                    <tbody>
+                    <tr>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                    </tr>
+                    <tr>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                    </tr>
+                    <tr>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                    </tr>
+                    <tr>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                    </tr>
+                    <tr>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                        <td class="place"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
             <h2 id="when-collected"></h2>
         </div>
     </div>
